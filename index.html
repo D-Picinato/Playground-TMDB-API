@@ -52,6 +52,7 @@
 
         h2 {
             color: var(--primary);
+            max-width: 100%;
         }
 
         .codes {
@@ -116,6 +117,7 @@
 
         img {
             width: min(50rem, 100%);
+            margin-top: 1rem;
         }
 
         footer {
@@ -155,9 +157,9 @@
 
             getAPI(`https://api.themoviedb.org/3/${url}?page=${page}&include_adult=false&language=pt-BR&region=br`)
                 .then(data => document.querySelector('#getTMDB').innerHTML = (`
-                    <h2>JSON getTMDB("${url}", ${page})</h2>
+                    <h2>JSON : getTMDB("${url}", ${page})</h2>
                     <div class="codepre"><pre><code>${JSON.stringify(data, null, 2)}</code></pre></div>
-    `)).then(() => { colorCode() })
+                `)).then(() => { colorCode() })
         }
 
         const getSearchTMDB = async () => {
@@ -168,16 +170,19 @@
 
             getAPI(`https://api.themoviedb.org/3/search/${typeContent}?query=${query}&page=${page}&include_adult=false&language=pt-BR&region=br`)
                 .then(data => document.querySelector('#getSearchTMDB').innerHTML = (`
-                    <h2>JSON getSearchTMDB("${typeContent}", "${query}", ${page})</h2>
+                    <h2>JSON : getSearchTMDB("${typeContent}", "${query}", ${page})</h2>
                     <div class="codepre"><pre><code>${JSON.stringify(data, null, 2)}</code></pre></div>
-    `)).then(() => { colorCode() })
+                `)).then(() => { colorCode() })
         }
 
         const getTMDBimg = () => {
             const imgPath = document.querySelector('#getTMDBimg_imgPath').value
             const width = document.querySelector('#getTMDBimg_width').value
 
-            document.querySelector('#getTMDBimg_image').src = `https://image.tmdb.org/t/p/w${width}${imgPath}`
+            document.querySelector('#getTMDBimg').innerHTML = (`
+                <h2>&lt;img&gt; : getTMDBimg("${imgPath}", ${width})</h2>
+                <img id="getTMDBimg_image" src="https://image.tmdb.org/t/p/${width}${imgPath}">
+            `)
         }
     </script>
     <!-- highlight.js -->
@@ -304,7 +309,8 @@
                     <input id="token" type="text" placeholder="Token de Acesso a API"
                         value="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZjI0MzA1MTkwYTM1YmE5NjM4YzQ1ZDE2YWY5MmIxMiIsIm5iZiI6MTcxOTAxNDA4MS41NTYxMTksInN1YiI6IjY2NzYwZjUwMjViOGQzM2U0ODIzMTM5NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BUAXHyW814PtiQBNNJat4yTXRdtifsOBn7tOAA7AjlY">
                 </div>
-                <pre><code class="language-javascript">// Variável que armazena um objeto com as configurações de acesso a API
+                <div class="codepre">
+                    <pre><code class="language-javascript">// Variável que armazena um objeto com as configurações de acesso a API
 const tmdbconfig = {
     method: 'GET',
     headers: {
@@ -312,6 +318,7 @@ const tmdbconfig = {
         Authorization: 'Bearer [TOKEN DE ACESSO DA API AQUI]'
     }
 }</code></pre>
+                </div>
             </div>
             <div>
                 <h2>getTMDB()</h2>
@@ -375,9 +382,8 @@ const getTMDBimg = (imgPath, width) => {
                 </div>
                 <button onclick="getTMDBimg()">Get</button>
             </div>
-            <div>
+            <div id="getTMDBimg">
                 <h2>&lt;img&gt; : getTMDBimg()</h2>
-                <img id="getTMDBimg_image" src="">
             </div>
         </div>
     </main>
