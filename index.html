@@ -372,12 +372,12 @@ const getSearchTMDB = async (typeContent, query, page) => {
                     <label>imgPath</label>
                     <input id="getTMDBimg_imgPath" type="text" placeholder="imgPath">
                     <label>width</label>
-                    <input id="getTMDBimg_width" type="text" placeholder="width" value="500">
+                    <input id="getTMDBimg_width" type="text" placeholder="width" value="w500">
                 </div>
                 <div class="codepre">
                     <pre><code>// Função que retorna uma imagem
 const getTMDBimg = (imgPath, width) => {
-    return `https://image.tmdb.org/t/p/w${width}${imgPath}`
+    return `https://image.tmdb.org/t/p/${width}${imgPath}`
 }</code></pre>
                 </div>
                 <button onclick="getTMDBimg()">Get</button>
